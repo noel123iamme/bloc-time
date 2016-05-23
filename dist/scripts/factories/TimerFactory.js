@@ -3,6 +3,7 @@
     var TimerFactory = {};
     
     var isTimer = undefined;
+    var sessionCount = 0;
 
     var setButtonText = function(text) {
       TimerFactory.currentButtonText = text + ' ' + TimerFactory.currentButtonType;  
@@ -16,11 +17,20 @@
       setButtonText("Start");
     };
     
+    var updateSesionCount = function() {
+      sessionCount++;
+      if (sessionCount === CONST.NUM_OF_SESSIONS) {
+        sessionCount = 0;
+        TimerFactory.currentTime = CONST.LONG_BREAK;
+      }
+    }
+    
     var updateTime = function() {
       TimerFactory.currentTime--;
       if (TimerFactory.currentTime <= 0) {
         if (TimerFactory.currentButtonType === CONST.WORK_BUTTON) {
           setSession(CONST.BREAK_SESSION, CONST.BREAK_BUTTON);
+          updateSesionCount();
         } else {
           setSession(CONST.WORK_SESSION, CONST.WORK_BUTTON);
         }
@@ -74,6 +84,7 @@
     .constant('CONST', {
       WORK_SESSION: 15,
       BREAK_SESSION: 3,
+      LONG_BREAK: 18,
       NUM_OF_SESSIONS: 4,
       WORK_BUTTON: "Work",
       BREAK_BUTTON: "Break"  
