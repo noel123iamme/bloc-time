@@ -1,24 +1,15 @@
 (function() {
-  function TimerFactory($interval) {
+  function TimerFactory(CONST, $interval) {
     var TimerFactory = {};
     
-    var workSession = 1500;
-    var breakSession = 300;
-    var numberOfSessions = 4;
-    var workButtonType = "Work";
-    var breakButtonType = "Break";
     var isTimer = undefined;
 
-    TimerFactory.currentTime = workSession;
-    TimerFactory.currentSession = workSession;
-    TimerFactory.currentButtonText = "Start " + workButtonType;
-    TimerFactory.currentButtonType = workButtonType;
-    
     var setButtonText = function(text) {
       TimerFactory.currentButtonText = text + ' ' + TimerFactory.currentButtonType;  
     }
     
     var setSession = function(seconds, button) {
+      TimerFactory.onBreak = ( CONST.BREAK_BUTTON === button )
       TimerFactory.currentTime = seconds;
       TimerFactory.currentSession = seconds;
       TimerFactory.currentButtonType = button;
@@ -28,10 +19,10 @@
     var updateTime = function() {
       TimerFactory.currentTime--;
       if (TimerFactory.currentTime <= 0) {
-        if (TimerFactory.currentButtonType === workButtonType) {
-          setSession(breakSession, breakButtonType);
+        if (TimerFactory.currentButtonType === CONST.WORK_BUTTON) {
+          setSession(CONST.BREAK_SESSION, CONST.BREAK_BUTTON);
         } else {
-          setSession(workSession, workButtonType);
+          setSession(CONST.WORK_SESSION, CONST.WORK_BUTTON);
         }
         stopTimer();
       }
@@ -50,10 +41,13 @@
       }
     };
 
-    TimerFactory.buttonClick = function() {
-      var seconds = TimerFactory.currentSession;
-      var buttonType = TimerFactory.currentButtonType;
-      
+    TimerFactory.currentTime = CONST.WORK_SESSION;
+    TimerFactory.currentSession = CONST.WORK_SESSION;
+    TimerFactory.currentButtonText = "Start " + CONST.WORK_BUTTON;
+    TimerFactory.currentButtonType = CONST.WORK_BUTTON;
+    TimerFactory.onBreak = false;
+    
+    var buttonClick = function(seconds, buttonType) {
       if ( angular.isUndefined(isTimer) ) {
         setButtonText("Reset");
         startTimer();
@@ -63,10 +57,25 @@
       }
     };
     
+    TimerFactory.workClick = function() {
+      buttonClick(CONST.WORK_SESSION, CONST.WORK_BUTTON)
+    }
+    
+    TimerFactory.breakClick = function() {
+      buttonClick(CONST.BREAK_SESSION, CONST.BREAK_BUTTON)
+    }
+    
     return TimerFactory;
   };
   
   angular
     .module('blocApp')
-    .factory('TimerFactory', ['$interval', TimerFactory])
+    .factory('TimerFactory', ['CONST', '$interval', TimerFactory])
+    .constant('CONST', {
+      WORK_SESSION: 15,
+      BREAK_SESSION: 3,
+      NUM_OF_SESSIONS: 4,
+      WORK_BUTTON: "Work",
+      BREAK_BUTTON: "Break"  
+    })
 })();
