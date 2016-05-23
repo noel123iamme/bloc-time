@@ -1,0 +1,26 @@
+.timer-box {
+  position: absolute;
+  top: 35%;
+  width: 100%;
+  align-self: center;
+}
+
+.time-label {
+  text-align: center;
+  font-size: 4.5rem;
+}
+
+.time-button {
+  overflow: ellipsis;
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 767px) {
+  .time-label {
+    font-size: 2.75rem;
+  }
+  
+  .time-button {
+    font-size: 1.25rem;
+  }
+}
