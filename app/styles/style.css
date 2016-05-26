@@ -1,8 +1,7 @@
 .timer-box {
-  position: absolute;
+  position: relative;
   top: 35%;
   width: 100%;
-  align-self: center;
 }
 
 .time-label {
@@ -11,7 +10,6 @@
 }
 
 .time-button {
-  overflow: ellipsis;
   font-size: 2rem;
 }
 
@@ -23,4 +21,32 @@
   .time-button {
     font-size: 1.25rem;
   }
+}
+
+@media screen and (max-width: 1200px) {
+  .time-label {
+    font-size: 3.75rem;
+  }
+  
+  .time-button {
+    font-size: 1.5rem;
+  }
+}
+
+form {
+  padding: 20px;
+}
+
+input {
+  margin-top: 5px;
+  width: 220px;
+  line-height: 30px;
+}
+
+li input {
+  width: 280px;
+}
+
+.task-title {
+  font-size: 2.75rem;
 }

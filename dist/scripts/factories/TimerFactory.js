@@ -1,16 +1,15 @@
 (function() {
   function TimerFactory(CONST, $interval, $rootScope) {
+    var scope = $rootScope;
     var TimerFactory = {};
     
     var isTimer = undefined;
     var sessionCount = 0;
     
-    var scope = $rootScope;
     
     scope.currentTime = CONST.WORK_SESSION;
     
     scope.$watch('currentTime', function() {
-      console.log('in watch: ' + scope.currentTime);
       if (scope.currentTime === 0) {
         mySound.play();
       }
@@ -42,7 +41,6 @@
       TimerFactory.currentTime--;
       scope.currentTime = TimerFactory.currentTime;
       if (TimerFactory.currentTime <= 0) {
-//        mySound.play();
         if (TimerFactory.currentButtonType === CONST.WORK_BUTTON) {
           setSession(CONST.BREAK_SESSION, CONST.BREAK_BUTTON);
           updateSesionCount();
@@ -97,9 +95,9 @@
     .module('blocApp')
     .factory('TimerFactory', ['CONST', '$interval', '$rootScope', TimerFactory])
     .constant('CONST', {
-      WORK_SESSION: 1500,
-      BREAK_SESSION: 300,
-      LONG_BREAK: 1800,
+      WORK_SESSION: 15,
+      BREAK_SESSION: 3,
+      LONG_BREAK: 18,
       NUM_OF_SESSIONS: 4,
       WORK_BUTTON: "Work",
       BREAK_BUTTON: "Break"  

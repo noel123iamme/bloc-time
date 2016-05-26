@@ -9,9 +9,14 @@
     $stateProvider
       .state('timer', {
         url: '/',
-        controller: 'TimerController as TCtrl',
+        controller: 'PomodoroController as pomo',
         templateUrl: '/templates/timer.html'
-    });
+      })
+      .state('task', {
+        url: '/',
+        controller: 'TaskController as taskCtrl',
+        templateUrl: '/templates/tasks.html'
+      });
   }
 
   angular
