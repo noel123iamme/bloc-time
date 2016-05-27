@@ -6,9 +6,12 @@
     this.newTaskText = '';
     
     this.addTask = function() {
+      console.log(Date.now());
       this.tasks.$add({
-        text: this.newTaskText
+        text: this.newTaskText,
+        dateTime: Date.now()
       });
+      
     };
   };
   

@@ -3,18 +3,17 @@
   <!-- push a new message onto the array -->
   <form ng-submit="taskCtrl.addTask()">
     <input ng-model="taskCtrl.newTaskText" />
-    <button type="submit" class="btn btn-default">Add Task</button>
+    <button type="submit" class="btn btn-success">Add Task</button>
   </form>
 
   <br>
   <ul class="sidebar-nav">
     <li class="task-title">Task History</li>
-    <li ng-repeat="task in taskCtrl.tasks">
+    <li ng-repeat="task in taskCtrl.tasks | orderBy : '-dateTime' ">
       <!-- edit a task -->
       <input ng-model="task.text" ng-change="taskCtrl.tasks.$save(task)" />
-
       <!-- delete a message -->
-      <button ng-click="taskCtrl.tasks.$remove(task)" class="btn btn-default">X</button>
+      <button ng-click="taskCtrl.tasks.$remove(task)" class="btn btn-danger">X</button>
     </li>
   </ul>
 </div>

@@ -95,9 +95,9 @@
     .module('blocApp')
     .factory('TimerFactory', ['CONST', '$interval', '$rootScope', TimerFactory])
     .constant('CONST', {
-      WORK_SESSION: 15,
-      BREAK_SESSION: 3,
-      LONG_BREAK: 18,
+      WORK_SESSION: 1500,
+      BREAK_SESSION: 300,
+      LONG_BREAK: 1800,
       NUM_OF_SESSIONS: 4,
       WORK_BUTTON: "Work",
       BREAK_BUTTON: "Break"  
